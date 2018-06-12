@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>成績管理</title>
+</head>
+<body>
+    <h1>科目一覧</h1>
+    <table>
+        <tr>
+            <th>科目名</th>
+            <th>単位数</th>
+            <th>評価点</th>
+            <th>出席日数</th>
+            <th>欠席日数</th>
+            <th>必修</th>
+            <th>習得済み</th>
+            <th>削除</th>
+        </tr>
+        <tr th:each="subject, iterStat:${subjectList}">
+            <td><span th:text="${subject.name}"></span></td>
+            <td><span th:text="${subject.numOfCredit}"></span></td>
+            <td><span th:text="${subject.score}"></span></td>
+            <td><span th:text="${subject.numOfAttendance}"></span></td>
+            <td><span th:text="${subject.numOfAbsence}"></span></td>
+            <td><span th:if="${subject.isCompulsory}">必修</span></td>
+            <td><span th:if="${subject.isEarnable()}">済</span></td>
+            <td>
+                <form method="post" action="/d14125/del_subject">
+                    <input type="submit" th:value="${iterStat.index}" value="削除" name="delIndex">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <form method="post" action="/d14125/clear_subjects">
+        <p>
+            <input type="submit" value="全削除" name="toClear">
+        </p>
+    </form>
+    
+    <h1>合計習得単位数</h1>
+    <p><span th:text="${creditsSum}"></span>単位</p>
+    
+    <h1>卒業判定</h1>
+    <p>卒業<span th:if="!${canGraduate}">不</span>可能</p>
+    
+    <h1>科目入力</h1>
+    <form action="/d14125/input_result" method="post">
+        科目名<input type="text" name="name" width="10"><br>
+        単位数<input type="text" name="credit" width="10">単位<br>
+        評価点<input type="text" name="score" width="10">点<br>
+        出席日数<input type="text" name="attendance" width="10">日<br>
+        欠席日数<input type="text" name="absence" width="10">日<br>
+        <input type="radio" name="compulsory" value="true">必修
+        <input type="radio" name="compulsory" value="false">必修ではない<br>
+        <input type="submit" value="入力">
+    </form>
+</body>
+</html>

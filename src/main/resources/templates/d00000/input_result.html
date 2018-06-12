@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>成績入力完了</title>
+</head>
+<body>
+    入力されました。
+    <form method="post" action="/d00000/input_form">
+        <p>
+            <input type="submit" value="再追加" name="toInput">
+        </p>
+    </form>
+    <form method="post" action="/d00000/show_grades">
+        <p>
+            <input type="submit" value="成績表示" name="toShow">
+        </p>
+    </form>
+</body>
+</html>
